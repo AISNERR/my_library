@@ -1,22 +1,32 @@
 #include "libft.h"
 
-int ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
-	int	i;
-	int	is_neg;
-	int	res;
+	int				i;
+	unsigned long long int	result;
+	long long int	neg;
 
-	if (!str)
-		return (0);
 	i = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' ||
-			str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+	neg = 1;
+	result = 0;
+	while (str[i] == 32 || str[i] == 10 || str[i] == 9 || str[i] == 12 ||
+			str[i] == 13 || str[i] == 11)
 		i++;
-	is_neg = (str[i] == '-') ? -1 : 1;
-	if (is_neg == -1 || str[i] == '+')
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg = -1;
 		i++;
-	res = 0;
-	while (str[i] >= '0' && str[i] <= '9')
-		res = (res * 10) + (str[i++] - '0');
-	return (res * is_neg);
+	}
+	while (str[i])
+	{
+		if (str[i] < 48 || 57 < str[i])
+			return (result * neg);
+		else
+			result = (result * 10) + (long long int)(str[i] - '0');
+		i++;
+	}
+	if (i > 19 || result >= 9223372036854775808ULL)
+		return (neg == 1 ? -1 : 0);
+	return (result * neg);
 }

@@ -6,6 +6,8 @@ char    *ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
+	if (s1 == NULL || s2 == NULL)
+	return (NULL);
 	str = (char*)malloc(
 		sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
