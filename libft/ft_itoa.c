@@ -1,46 +1,46 @@
-#include "libft.h"
-
-static int  ft_abs(int nbr)
+#include <stdlib.h>
+ 
+int     absolute_value(int nbr)
 {
-	return ((nbr < 0) ? -nbr : nbr);
+    if (nbr < 0)
+        return (-nbr);
+    return (nbr);
 }
-
-static void ft_strrev(char *str)
+ 
+int     get_len(int nbr)
 {
-	size_t	length;
-	size_t	i;
-	char	tmp;
-
-	length = ft_strlen(str);
-	i = 0;
-	while (i < length / 2)
-	{
-		tmp = str[i];
-		str[i] = str[length - i - 1];
-		str[length - i - 1] = tmp;
-		i++;
-	}
+    int len = 0;
+    if (nbr <= 0)
+        ++len;
+    while (nbr != 0)
+    {
+        ++len;
+        nbr = nbr / 10;
+    }
+    return (len);
 }
-
-char    *ft_itoa(int n)
+ 
+char    *ft_itoa(int nbr)
 {
-	char	*str;
-	int		is_neg;
-	size_t	length;
-
-	is_neg = (n < 0);
-	if (!(str = ft_calloc(11 + is_neg, sizeof(*str))))
+    char *result;
+    int len;
+ 
+    len = get_len(nbr);
+    result = malloc(sizeof(char) * (len + 1));
+	if (result == NULL)
 		return (NULL);
-	if (n == 0)
-		str[0] = '0';
-	length = 0;
-	while (n != 0)
-	{
-		str[length++] = '0' + ft_abs(n % 10);
-		n = (n / 10);
-	}
-	if (is_neg)
-		str[length] = '-';
-	ft_strrev(str);
-	return (str);
+    result[len] = '\0';
+ 
+    if (nbr < 0)
+        result[0] = '-';
+    else if (nbr == 0)
+        result[0] = '0';
+ 
+    while (nbr != 0)
+    {
+        --len;
+        result[len] = absolute_value(nbr % 10) + '0';
+        nbr = nbr / 10;
+    }
+    return (result);
 }

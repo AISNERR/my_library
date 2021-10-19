@@ -28,5 +28,5 @@ int		ft_atoi(const char *str)
 	}
 	if (i > 19 || result >= 9223372036854775808ULL)
 		return (neg == 1 ? -1 : 0);
-	return (result * neg);
+	return ((int) result * neg);
 }
