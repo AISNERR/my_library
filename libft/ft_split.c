@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgaladri <sgaladri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/20 22:25:11 by sgaladri          #+#    #+#             */
+/*   Updated: 2021/10/21 01:36:54 by sgaladri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static char **ft_alloc_split(char const *s, char c)
+static	char	**ft_alloc_split(char const *s, char c)
 {
 	size_t	i;
 	char	**split;
@@ -14,13 +26,13 @@ static char **ft_alloc_split(char const *s, char c)
 			total++;
 		i++;
 	}
-	split = (char**)malloc(sizeof(s) * (total + 2));
+	split = (char **)malloc(sizeof(s) * (total + 2));
 	if (!split)
 		return (NULL);
 	return (split);
 }
 
-void    *ft_free_all_split_alloc(char **split, size_t elts)
+void	*ft_free_all_split_alloc(char **split, size_t elts)
 {
 	size_t	i;
 
@@ -34,7 +46,7 @@ void    *ft_free_all_split_alloc(char **split, size_t elts)
 	return (NULL);
 }
 
-static void *ft_split_range(char **split, char const *s,
+static void	*ft_split_range(char **split, char const *s,
 		t_split_next *st, t_split_next *lt)
 {
 	split[lt->length] = ft_substr(s, st->start, st->length);
@@ -44,7 +56,7 @@ static void *ft_split_range(char **split, char const *s,
 	return (split);
 }
 
-static void *ft_split_by_char(char **split, char const *s, char c)
+static	void	*ft_split_by_char(char **split, char const *s, char c)
 {
 	size_t			i;
 	t_split_next	st;
@@ -73,13 +85,14 @@ static void *ft_split_by_char(char **split, char const *s, char c)
 	return (split);
 }
 
-char    **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 
 	if (!s)
 		return (NULL);
-	if (!(split = ft_alloc_split(s, c)))
+	split = ft_alloc_split(s, c);
+	if (!(split))
 		return (NULL);
 	if (!ft_split_by_char(split, s, c))
 		return (NULL);
